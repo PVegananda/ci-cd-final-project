@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install flake8 nose coverage nose2
+          pip install flake8 nose coverage
 
       - name: Lint with flake8
         run: |
@@ -30,4 +30,4 @@ jobs:
 
       - name: Run unit tests with nose
         run: |
-          nosetests -v --with-spec --spec-color --with-coverage --cover-package=service
+          nosetests -v
