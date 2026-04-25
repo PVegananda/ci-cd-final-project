@@ -21,7 +21,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
-          pip install flake8 nose coverage
+          pip install flake8 nose coverage nose2
 
       - name: Lint with flake8
         run: |
