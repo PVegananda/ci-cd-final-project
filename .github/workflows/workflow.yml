@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    container: python:3.11
+    container: python:3.9
 
     steps:
       - name: Checkout source code
@@ -30,4 +30,4 @@ jobs:
 
       - name: Run unit tests with nose
         run: |
-          nosetests -v
+          nosetests -v --with-spec --spec-color --with-coverage --cover-package=service
