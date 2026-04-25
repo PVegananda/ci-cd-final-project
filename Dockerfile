@@ -1,22 +1,25 @@
 FROM python:3.9-slim
 
-# Establish a working folder
+# Create working directory
 WORKDIR /app
 
-# Establish dependencies
+# Copy requirements first
 COPY requirements.txt .
-RUN python -m pip install -U pip wheel && \
-    pip install -r requirements.txt
 
-# Copy source files last because they change the most
-COPY service ./service
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Become non-root user
-RUN useradd -m -r service && \
-    chown -R service:service /app
-USER service
+# Copy all application files
+COPY . .
 
-# Run the service on port 8000
-ENV PORT 8000
-EXPOSE $PORT
-CMD ["gunicorn", "service:app", "--bind", "0.0.0.0:8000"]
+# Create non-root user
+RUN useradd -m appuser
+
+# Switch to non-root user
+USER appuser
+
+# Expose application port
+EXPOSE 8080
+
+# Run the service
+CMD ["python", "app.py"]
